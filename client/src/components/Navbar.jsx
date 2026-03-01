@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -53,6 +54,67 @@ const Navbar = () => {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
+
+  const mobileDrawer =
+    typeof document !== "undefined"
+      ? createPortal(
+          <>
+            <div
+              className={`fixed inset-0 z-[990] bg-black transition-opacity duration-300 md:hidden ${
+                mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+              }`}
+              onClick={closeMobileMenu}
+            />
+            <aside
+              className={`fixed top-0 right-0 z-[1000] h-full w-[80%] max-w-80 overflow-y-auto bg-white opacity-100 shadow-2xl backdrop-blur-none transition-transform duration-300 ease-out md:hidden ${
+                mobileOpen ? "translate-x-0" : "translate-x-full"
+              }`}
+            >
+              <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
+                <p className="text-lg font-bold text-brand-700">Menu</p>
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={closeMobileMenu}
+                  className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md border border-slate-300 text-slate-700 transition hover:bg-slate-100"
+                >
+                  X
+                </button>
+              </div>
+              <nav className="flex flex-col gap-2 px-4 py-4">
+                <NavLink to="/" className={mobileNavLinkClass} onClick={closeMobileMenu}>
+                  Home
+                </NavLink>
+                <NavLink to="/about" className={mobileNavLinkClass} onClick={closeMobileMenu}>
+                  About
+                </NavLink>
+                <NavLink to="/contact" className={mobileNavLinkClass} onClick={closeMobileMenu}>
+                  Contact
+                </NavLink>
+                <NavLink to="/products" className={mobileNavLinkClass} onClick={closeMobileMenu}>
+                  Products
+                </NavLink>
+                <NavLink to="/cart" className={mobileNavLinkClass} onClick={closeMobileMenu}>
+                  Cart ({items.length})
+                </NavLink>
+                <NavLink to="/admin/dashboard" className={mobileNavLinkClass} onClick={closeMobileMenu}>
+                  Admin
+                </NavLink>
+                {token && (
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="inline-flex h-12 items-center rounded-lg bg-slate-200 px-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-300"
+                  >
+                    Logout
+                  </button>
+                )}
+              </nav>
+            </aside>
+          </>,
+          document.body
+        )
+      : null;
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur animate-slide-down">
@@ -113,59 +175,7 @@ const Navbar = () => {
           )}
         </nav>
       </div>
-
-      <div
-        className={`fixed inset-0 z-[90] bg-black/80 transition-opacity duration-300 md:hidden ${
-          mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        onClick={closeMobileMenu}
-      />
-      <aside
-        className={`fixed top-0 right-0 z-[100] h-full w-[80%] max-w-80 overflow-y-auto bg-white opacity-100 shadow-2xl backdrop-blur-none transition-transform duration-300 ease-out md:hidden ${
-          mobileOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
-          <p className="text-lg font-bold text-brand-700">Menu</p>
-          <button
-            type="button"
-            aria-label="Close menu"
-            onClick={closeMobileMenu}
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md border border-slate-300 text-slate-700 transition hover:bg-slate-100"
-          >
-            X
-          </button>
-        </div>
-        <nav className="flex flex-col gap-2 px-4 py-4">
-          <NavLink to="/" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-            Home
-          </NavLink>
-          <NavLink to="/about" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-            About
-          </NavLink>
-          <NavLink to="/contact" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-            Contact
-          </NavLink>
-          <NavLink to="/products" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-            Products
-          </NavLink>
-          <NavLink to="/cart" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-            Cart ({items.length})
-          </NavLink>
-          <NavLink to="/admin/dashboard" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-            Admin
-          </NavLink>
-          {token && (
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="inline-flex h-12 items-center rounded-lg bg-slate-200 px-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-300"
-            >
-              Logout
-            </button>
-          )}
-        </nav>
-      </aside>
+      {mobileDrawer}
     </header>
   );
 };
