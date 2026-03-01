@@ -23,8 +23,8 @@ const FloatingActions = () => {
 
   return (
     <div
-      className={`fixed right-4 z-40 flex flex-col gap-3 transition-all duration-300 md:right-6 ${
-        lifted ? "bottom-28 md:bottom-32" : "bottom-5 md:bottom-6"
+      className={`fixed right-4 z-50 flex flex-col gap-3 transition-all duration-300 ${
+        lifted ? "bottom-28 md:bottom-32" : "bottom-6"
       }`}
     >
       <a
@@ -32,7 +32,7 @@ const FloatingActions = () => {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-xl text-white shadow-lg transition hover:scale-105 hover:bg-emerald-600"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-xl text-white shadow-xl transition hover:scale-105 hover:bg-emerald-600"
       >
         <FaWhatsapp />
       </a>
@@ -40,7 +40,7 @@ const FloatingActions = () => {
       <a
         href={`tel:${callNumber}`}
         aria-label="Call now"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-500 text-lg text-white shadow-lg transition hover:scale-105 hover:bg-brand-700"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-500 text-lg text-white shadow-xl transition hover:scale-105 hover:bg-brand-700"
       >
         <FaPhoneAlt />
       </a>

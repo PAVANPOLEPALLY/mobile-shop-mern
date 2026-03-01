@@ -47,21 +47,21 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="space-y-12 animate-fade-in">
+    <div className="space-y-8 py-8 md:space-y-12 animate-fade-in">
       <HeroSlider banners={heroBanners} loading={loadingHero} />
 
       {featuredProducts.length > 0 && (
         <section className="space-y-4 rounded-2xl bg-amber-50/60 p-4 ring-1 ring-amber-100 animate-fade-up sm:p-6">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-2xl font-bold">Featured Mobiles</h2>
+            <h2 className="text-xl font-bold sm:text-2xl">Featured Mobiles</h2>
             <Link
               to="/products"
-              className="rounded-lg bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-800 transition hover:bg-amber-200"
+              className="inline-flex min-h-[44px] items-center rounded-lg bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-800 transition hover:bg-amber-200"
             >
               View All
             </Link>
           </div>
-          <div className="stagger-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="stagger-grid grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {featuredProducts.map((product, index) => (
               <ProductCard key={product._id} product={product} index={index} />
             ))}
@@ -71,7 +71,7 @@ const HomePage = () => {
 
       {!loadingOffers && offerBanners.length > 0 && (
         <section className="space-y-4 animate-fade-up">
-          <h2 className="text-2xl font-bold">Latest Offers</h2>
+          <h2 className="text-xl font-bold sm:text-2xl">Latest Offers</h2>
           <div className="flex gap-4 overflow-x-auto pb-2">
             {offerBanners.map((banner) => {
               const Wrapper = banner.link ? "a" : "div";
@@ -105,8 +105,8 @@ const HomePage = () => {
       {loadingOffers && <BannerSkeleton />}
 
       <section className="space-y-4 animate-fade-up">
-        <h2 className="text-2xl font-bold">Latest Products</h2>
-        <div className="stagger-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <h2 className="text-xl font-bold sm:text-2xl">Latest Products</h2>
+        <div className="stagger-grid grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {latestProducts.map((product, index) => (
             <ProductCard key={product._id} product={product} index={index} />
           ))}

@@ -20,9 +20,9 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
+    <div className="flex min-h-screen flex-col overflow-x-hidden bg-gray-50 text-slate-900">
       <Navbar />
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-20 pt-6 sm:px-6 md:pt-8 lg:px-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

@@ -48,7 +48,7 @@ const ContactPage = () => {
   return (
     <section className="mx-auto max-w-5xl space-y-8 animate-fade-in">
       <header className="space-y-2">
-        <h1 className="text-4xl font-bold text-slate-900">Contact Us</h1>
+        <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Contact Us</h1>
         <p className="text-slate-600">
           Have questions about products, orders, or EMI? Our team is here to help.
         </p>
@@ -86,7 +86,7 @@ const ContactPage = () => {
               onChange={handleChange}
               placeholder="Your Name"
               required
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
+              className="w-full min-h-[44px] rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
             />
             <input
               type="email"
@@ -95,7 +95,7 @@ const ContactPage = () => {
               onChange={handleChange}
               placeholder="Your Email"
               required
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
+              className="w-full min-h-[44px] rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
             />
             <input
               type="tel"
@@ -104,7 +104,7 @@ const ContactPage = () => {
               onChange={handleChange}
               placeholder="Phone Number"
               required
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
+              className="w-full min-h-[44px] rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
             />
             <textarea
               rows={4}
@@ -117,7 +117,7 @@ const ContactPage = () => {
             />
             <button
               type="submit"
-              className="rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
+              className="inline-flex min-h-[44px] items-center rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
             >
               Submit
             </button>
@@ -153,7 +153,7 @@ const ContactPage = () => {
             href={directionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
           >
             <FaDirections />
             Get Directions

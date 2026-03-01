@@ -40,7 +40,7 @@ const HeroSlider = ({ banners = [], loading = false }) => {
   };
 
   if (loading) {
-    return <div className="h-[300px] animate-pulse rounded-3xl bg-slate-200 sm:h-[380px]" />;
+    return <div className="h-[260px] animate-pulse rounded-3xl bg-slate-200 sm:h-[320px] md:h-[430px]" />;
   }
 
   return (
@@ -49,7 +49,7 @@ const HeroSlider = ({ banners = [], loading = false }) => {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      <div className="relative h-[300px] sm:h-[380px] md:h-[430px]">
+      <div className="relative h-[260px] sm:h-[320px] md:h-[430px]">
         {slides.map((slide, index) => (
           <article
             key={`${slide.title}-${index}`}
@@ -64,14 +64,14 @@ const HeroSlider = ({ banners = [], loading = false }) => {
               loading={index === currentIndex ? "eager" : "lazy"}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-900/45 to-transparent" />
-            <div className="absolute inset-0 flex items-end p-6 sm:p-10">
-              <div className="max-w-2xl space-y-4 text-white">
-                <h1 className="text-2xl font-bold leading-tight sm:text-4xl">{slide.title}</h1>
+            <div className="absolute inset-0 flex items-end p-4 sm:p-6 md:p-10">
+              <div className="max-w-2xl space-y-3 text-center text-white md:space-y-4 md:text-left">
+                <h1 className="text-2xl font-bold leading-tight md:text-4xl lg:text-5xl">{slide.title}</h1>
                 {slide.subtitle && <p className="text-sm text-slate-100 sm:text-base">{slide.subtitle}</p>}
                 {slide.link && (
                   <a
                     href={slide.link}
-                    className="inline-flex rounded-lg bg-white px-5 py-3 text-sm font-bold text-brand-700 transition hover:-translate-y-0.5 hover:shadow-md"
+                    className="inline-flex min-h-[44px] items-center rounded-lg bg-white px-5 py-3 text-sm font-bold text-brand-700 transition hover:-translate-y-0.5 hover:shadow-md"
                   >
                     Shop Now
                   </a>
@@ -87,7 +87,7 @@ const HeroSlider = ({ banners = [], loading = false }) => {
           <button
             type="button"
             onClick={prev}
-            className="absolute left-4 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/40 px-3 py-2 text-white transition hover:bg-black/55 md:block"
+            className="absolute left-4 top-1/2 hidden min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-black/40 px-3 py-2 text-white transition hover:bg-black/55 md:flex"
             aria-label="Previous banner"
           >
             <span aria-hidden="true">&lt;</span>
@@ -95,7 +95,7 @@ const HeroSlider = ({ banners = [], loading = false }) => {
           <button
             type="button"
             onClick={next}
-            className="absolute right-4 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/40 px-3 py-2 text-white transition hover:bg-black/55 md:block"
+            className="absolute right-4 top-1/2 hidden min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-black/40 px-3 py-2 text-white transition hover:bg-black/55 md:flex"
             aria-label="Next banner"
           >
             <span aria-hidden="true">&gt;</span>

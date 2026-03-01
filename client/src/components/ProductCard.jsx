@@ -15,7 +15,10 @@ const ProductCard = ({ product, index = 0 }) => {
   const offerLabel = getOfferLabel(discount);
 
   return (
-    <article className="card group overflow-hidden" style={{ animationDelay: `${index * 70}ms` }}>
+    <article
+      className="group flex h-full flex-col justify-between overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:shadow-md"
+      style={{ animationDelay: `${index * 70}ms` }}
+    >
       <div className="relative overflow-hidden">
         {hasDiscount && (
           <span className="absolute right-3 top-3 z-10 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white shadow">
@@ -25,10 +28,10 @@ const ProductCard = ({ product, index = 0 }) => {
         <img
           src={product.images?.[0] || "https://via.placeholder.com/400x280?text=Product"}
           alt={product.name}
-          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-56 w-full rounded-t-xl bg-gray-50 p-4 object-contain transition duration-500 group-hover:scale-105"
         />
       </div>
-      <div className="space-y-3 p-4">
+      <div className="flex flex-1 flex-col space-y-3 p-4">
         <div className="flex items-start justify-between gap-2">
           <h3 className="line-clamp-1 text-base font-semibold text-slate-900">{product.name}</h3>
           {offerLabel && (
@@ -70,12 +73,12 @@ const ProductCard = ({ product, index = 0 }) => {
           </span>
         </div>
 
-        <div className="grid gap-2">
+        <div className="mt-auto grid gap-2">
           <a
             href={createSingleProductWhatsAppLink(product, 1)}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg bg-emerald-500 px-4 py-2 text-center text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-600"
+            className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-green-500 px-4 text-center text-sm font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-green-600"
           >
             Buy via WhatsApp
           </a>
@@ -83,7 +86,7 @@ const ProductCard = ({ product, index = 0 }) => {
 
         <Link
           to={`/products/${product._id}`}
-          className="inline-block rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200"
+          className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-slate-100 px-4 text-sm font-medium text-slate-700 transition-all duration-200 hover:bg-slate-200"
         >
           View Details
         </Link>

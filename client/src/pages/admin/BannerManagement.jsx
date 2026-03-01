@@ -138,10 +138,10 @@ const BannerManagement = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-3xl font-bold">Banner Management</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Banner Management</h1>
         <Link
           to="/admin/dashboard"
-          className="rounded-lg bg-slate-200 px-4 py-2 text-sm font-semibold transition hover:bg-slate-300"
+          className="inline-flex min-h-[44px] items-center rounded-lg bg-slate-200 px-4 py-2 text-sm font-semibold transition hover:bg-slate-300"
         >
           Back to Dashboard
         </Link>
@@ -156,20 +156,20 @@ const BannerManagement = () => {
             onChange={handleChange}
             placeholder="Title"
             required
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           />
           <input
             name="subtitle"
             value={form.subtitle}
             onChange={handleChange}
             placeholder="Subtitle"
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           />
           <select
             name="type"
             value={form.type}
             onChange={handleChange}
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           >
             <option value="hero">Hero</option>
             <option value="offer">Offer</option>
@@ -180,20 +180,20 @@ const BannerManagement = () => {
             value={form.order}
             onChange={handleChange}
             placeholder="Order"
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           />
           <input
             name="link"
             value={form.link}
             onChange={handleChange}
             placeholder="Redirect Link (optional)"
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           />
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setImage(e.target.files?.[0] || null)}
-            className="rounded-lg border border-slate-300 px-3 py-2"
+            className="rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           />
 
           <label className="col-span-full flex items-center gap-2 text-sm font-semibold text-slate-700">
@@ -201,15 +201,15 @@ const BannerManagement = () => {
             Active
           </label>
 
-          <div className="col-span-full flex gap-3">
-            <button className="rounded-lg bg-brand-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-700">
+          <div className="col-span-full flex flex-wrap gap-3">
+            <button className="inline-flex min-h-[44px] items-center rounded-lg bg-brand-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-700">
               {submitLabel}
             </button>
             {editingId && (
               <button
                 type="button"
                 onClick={resetForm}
-                className="rounded-lg bg-slate-200 px-4 py-3 text-sm font-semibold transition hover:bg-slate-300"
+                className="inline-flex min-h-[44px] items-center rounded-lg bg-slate-200 px-4 py-3 text-sm font-semibold transition hover:bg-slate-300"
               >
                 Cancel
               </button>

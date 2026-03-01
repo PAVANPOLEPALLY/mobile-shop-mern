@@ -29,6 +29,7 @@ const AdminDashboardPage = () => {
   const [images, setImages] = useState([]);
   const [editingId, setEditingId] = useState("");
   const [status, setStatus] = useState("");
+  const [mobileActionsOpen, setMobileActionsOpen] = useState(false);
   const { logout } = useAuth();
 
   const loadProducts = async () => {
@@ -139,26 +140,50 @@ const AdminDashboardPage = () => {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] animate-fade-in">
+    <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] animate-fade-in">
       <section className="card p-6 animate-fade-up">
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <div className="flex items-center gap-2">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+          <h1 className="text-xl font-bold sm:text-2xl">Admin Dashboard</h1>
+          <button
+            type="button"
+            onClick={() => setMobileActionsOpen((prev) => !prev)}
+            className="inline-flex min-h-[44px] items-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold md:hidden"
+          >
+            {mobileActionsOpen ? "Hide Actions" : "Admin Actions"}
+          </button>
+          <div className="hidden items-center gap-2 md:flex">
             <Link
               to="/admin/banners"
-              className="rounded-lg bg-brand-100 px-3 py-2 text-sm font-semibold text-brand-700 transition hover:bg-brand-200"
+              className="inline-flex min-h-[44px] items-center rounded-lg bg-brand-100 px-3 py-2 text-sm font-semibold text-brand-700 transition hover:bg-brand-200"
             >
               Manage Banners
             </Link>
             <button
               type="button"
-              className="rounded-lg bg-slate-200 px-3 py-2 text-sm font-semibold transition hover:bg-slate-300"
+              className="inline-flex min-h-[44px] items-center rounded-lg bg-slate-200 px-3 py-2 text-sm font-semibold transition hover:bg-slate-300"
               onClick={logout}
             >
               Logout
             </button>
           </div>
         </div>
+        {mobileActionsOpen && (
+          <div className="mb-3 grid gap-2 md:hidden">
+            <Link
+              to="/admin/banners"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-brand-100 px-3 py-2 text-sm font-semibold text-brand-700 transition hover:bg-brand-200"
+            >
+              Manage Banners
+            </Link>
+            <button
+              type="button"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-slate-200 px-3 py-2 text-sm font-semibold transition hover:bg-slate-300"
+              onClick={logout}
+            >
+              Logout
+            </button>
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             name="name"
@@ -168,7 +193,7 @@ const AdminDashboardPage = () => {
             required
             className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <select
               name="category"
               value={form.category}
@@ -186,7 +211,7 @@ const AdminDashboardPage = () => {
               className="rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
             />
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-600">Price</label>
               <input
@@ -278,16 +303,16 @@ const AdminDashboardPage = () => {
             multiple
             accept="image/*"
             onChange={(e) => setImages(e.target.files || [])}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2"
+            className="w-full rounded-lg border border-slate-300 px-3 py-3 min-h-[44px]"
           />
-          <div className="flex gap-3">
-            <button className="rounded-lg bg-brand-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-700">
+          <div className="flex flex-wrap gap-3">
+            <button className="inline-flex min-h-[44px] items-center rounded-lg bg-brand-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-700">
               {submitLabel}
             </button>
             {editingId && (
               <button
                 type="button"
-                className="rounded-lg bg-slate-200 px-4 py-3 text-sm font-semibold transition hover:bg-slate-300"
+                className="inline-flex min-h-[44px] items-center rounded-lg bg-slate-200 px-4 py-3 text-sm font-semibold transition hover:bg-slate-300"
                 onClick={resetForm}
               >
                 Cancel Edit
@@ -299,7 +324,7 @@ const AdminDashboardPage = () => {
       </section>
 
       <section className="space-y-4 animate-fade-up">
-        <h2 className="text-2xl font-bold">Manage Products</h2>
+        <h2 className="text-xl font-bold sm:text-2xl">Manage Products</h2>
         <div className="space-y-3">
           {products.map((product, index) => (
             <article
@@ -325,11 +350,11 @@ const AdminDashboardPage = () => {
                   {product.category} | {product.brand} | Rs {product.price} | Stock {product.stock}
                 </p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={() => handleToggleFeatured(product)}
-                  className={`rounded-md px-3 py-2 text-sm font-semibold transition ${
+                  className={`inline-flex min-h-[44px] items-center rounded-md px-3 py-2 text-sm font-semibold transition ${
                     product.isFeatured
                       ? "bg-amber-100 text-amber-700 hover:bg-amber-200"
                       : "bg-slate-200 text-slate-700 hover:bg-slate-300"
@@ -340,14 +365,14 @@ const AdminDashboardPage = () => {
                 <button
                   type="button"
                   onClick={() => startEdit(product)}
-                  className="rounded-md bg-blue-100 px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-200"
+                  className="inline-flex min-h-[44px] items-center rounded-md bg-blue-100 px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-200"
                 >
                   Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => handleDelete(product._id)}
-                  className="rounded-md bg-red-100 px-3 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-200"
+                  className="inline-flex min-h-[44px] items-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-200"
                 >
                   Delete
                 </button>

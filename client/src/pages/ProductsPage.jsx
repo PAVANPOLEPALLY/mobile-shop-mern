@@ -51,21 +51,21 @@ const ProductsPage = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <h1 className="text-3xl font-bold">All Products</h1>
+    <div className="space-y-6 py-8 animate-fade-in">
+      <h1 className="text-2xl font-bold sm:text-3xl">All Products</h1>
 
-      <div className="card grid gap-4 p-4 animate-fade-up sm:grid-cols-2 lg:grid-cols-5">
+      <div className="card grid gap-3 p-4 animate-fade-up sm:grid-cols-2 lg:grid-cols-5">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by product name"
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500 sm:col-span-2"
+          className="w-full rounded-lg border border-slate-300 px-3 py-3 outline-none transition focus:border-brand-500 sm:col-span-2 min-h-[44px]"
         />
 
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
+          className="rounded-lg border border-slate-300 px-3 py-3 outline-none transition focus:border-brand-500 min-h-[44px]"
         >
           <option value="">All Categories</option>
           <option value="mobile">Mobile</option>
@@ -75,7 +75,7 @@ const ProductsPage = () => {
         <select
           value={priceFilter}
           onChange={(e) => setPriceFilter(e.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
+          className="rounded-lg border border-slate-300 px-3 py-3 outline-none transition focus:border-brand-500 min-h-[44px]"
         >
           <option value="">All Prices</option>
           <option value="below-5000">Below ₹5,000</option>
@@ -87,7 +87,7 @@ const ProductsPage = () => {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-brand-500"
+          className="rounded-lg border border-slate-300 px-3 py-3 outline-none transition focus:border-brand-500 min-h-[44px]"
         >
           <option value="">Sort By</option>
           <option value="price-low-high">Price (Low to High)</option>
@@ -96,14 +96,14 @@ const ProductsPage = () => {
         <button
           type="button"
           onClick={clearFilters}
-          className="rounded-lg bg-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-300 sm:col-span-2 lg:col-span-1"
+          className="rounded-lg bg-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-300 sm:col-span-2 lg:col-span-1 min-h-[44px]"
         >
           Clear Filters
         </button>
       </div>
 
       {filtered.length ? (
-        <div className="stagger-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="stagger-grid grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filtered.map((product, index) => (
             <ProductCard key={product._id} product={product} index={index} />
           ))}

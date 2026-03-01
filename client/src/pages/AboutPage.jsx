@@ -2,7 +2,7 @@
   return (
     <section className="mx-auto max-w-4xl space-y-8 animate-fade-in">
       <header className="space-y-3">
-        <h1 className="text-4xl font-bold text-slate-900">About Us</h1>
+        <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">About Us</h1>
       </header>
 
       <article className="card space-y-4 p-6">

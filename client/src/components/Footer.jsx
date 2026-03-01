@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <footer id="site-footer" className="mt-16 border-t border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-10 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <section className="space-y-3">
           <h3 className="text-lg font-bold text-brand-700">{shopName}</h3>
           <p className="text-sm text-slate-600">{shopDescription}</p>
@@ -44,7 +44,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="rounded-full bg-slate-100 p-3 text-slate-700 transition hover:-translate-y-0.5 hover:bg-brand-100 hover:text-brand-700"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-slate-100 p-3 text-slate-700 transition hover:-translate-y-0.5 hover:bg-brand-100 hover:text-brand-700"
               >
                 <Icon />
               </a>
@@ -52,12 +52,12 @@ const Footer = () => {
           </div>
         </section>
 
-        <section className="space-y-3 md:justify-self-end">
+        <section className="space-y-3 md:col-span-2 md:justify-self-end">
           <h4 className="text-base font-semibold">Contact</h4>
           <div className="flex flex-col gap-2 text-sm">
             <a
               href={`tel:${callNumber}`}
-              className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-4 py-2 font-semibold text-slate-800 transition hover:bg-slate-200"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-slate-100 px-4 py-2 font-semibold text-slate-800 transition hover:bg-slate-200"
             >
               <FaPhoneAlt /> Call Now
             </a>
@@ -65,13 +65,13 @@ const Footer = () => {
               href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-emerald-100 px-4 py-2 font-semibold text-emerald-700 transition hover:bg-emerald-200"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-emerald-100 px-4 py-2 font-semibold text-emerald-700 transition hover:bg-emerald-200"
             >
               <FaWhatsapp /> WhatsApp
             </a>
             <a
               href={`mailto:${shopEmail}`}
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-100 px-4 py-2 font-semibold text-blue-700 transition hover:bg-blue-200"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-blue-100 px-4 py-2 font-semibold text-blue-700 transition hover:bg-blue-200"
             >
               <FaEnvelope /> Email Us
             </a>
@@ -81,7 +81,7 @@ const Footer = () => {
 
       <div className="border-t border-slate-200">
         <p className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-slate-500 sm:px-6 lg:px-8">
-          Â© {year} {shopName}. All Rights Reserved.
+          (c) {year} {shopName}. All Rights Reserved.
         </p>
       </div>
     </footer>
