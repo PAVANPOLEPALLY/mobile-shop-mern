@@ -4,7 +4,7 @@ import { getProductById } from "../services/api";
 import { calculatePricing, formatINR, formatINRWhole } from "../utils/pricing";
 import { createSingleProductWhatsAppLink } from "../utils/whatsapp";
 
-const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
+const callNumber = import.meta.env.VITE_CALL_NUMBER || "+917780319932";
 
 const getOfferLabel = (discount) => {
   if (discount >= 40) return "Mega Offer";
