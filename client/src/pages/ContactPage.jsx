@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FaDirections, FaMapMarkerAlt } from "react-icons/fa";
+
+const mapTypeParam = {
+  roadmap: "m",
+  satellite: "k",
+  hybrid: "h"
+};
 
 const ContactPage = () => {
   const shopName = import.meta.env.VITE_SHOP_NAME || "Sri Kanakadurga Mobiles";
   const shopAddress =
     import.meta.env.VITE_SHOP_ADDRESS || "MG Road, Bengaluru, Karnataka 560001";
   const shopEmail = import.meta.env.VITE_SHOP_EMAIL || "support@srikanakadurgamobiles.in";
-  const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
+  const callNumber = import.meta.env.VITE_CALL_NUMBER || "+917780319932";
   const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "778039932").replace(
     /\D/g,
     ""
   );
-  const directionsUrl = "https://maps.app.goo.gl/W5Qe9oECETukCe3S6?g_st=aw";
-  const mapEmbedUrl =
-    "https://www.google.com/maps?q=SRI+KANAKADURGA+WATCH%26+MOBILES,+Gandhinagar,+Bhoodan+Pochampally,+Telangana+508284&output=embed";
+
+  const destinationText =
+    "SRI KANAKADURGA WATCH & MOBILES, Gandhinagar, Bhoodan Pochampally, Telangana 508284";
+  const destinationQuery = encodeURIComponent(destinationText);
+
+  const mapOpenUrl = `https://www.google.com/maps/search/?api=1&query=${destinationQuery}`;
+  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destinationQuery}&travelmode=driving`;
+
+  const [mapType, setMapType] = useState("roadmap");
+  const [mapInteractive, setMapInteractive] = useState(false);
+
+  const mapEmbedUrl = useMemo(() => {
+    const t = mapTypeParam[mapType] || "m";
+    return `https://maps.google.com/maps?q=${destinationQuery}&t=${t}&z=15&output=embed`;
+  }, [destinationQuery, mapType]);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -134,30 +153,94 @@ const ContactPage = () => {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-2xl ring-1 ring-slate-200">
-          <div className="relative w-full pb-[56.25%]">
+        <div className="flex flex-wrap justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setMapType("roadmap")}
+            className={`inline-flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              mapType === "roadmap"
+                ? "bg-brand-500 text-white"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+            }`}
+          >
+            Default
+          </button>
+          <button
+            type="button"
+            onClick={() => setMapType("satellite")}
+            className={`inline-flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              mapType === "satellite"
+                ? "bg-brand-500 text-white"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+            }`}
+          >
+            Satellite
+          </button>
+          <button
+            type="button"
+            onClick={() => setMapType("hybrid")}
+            className={`inline-flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              mapType === "hybrid"
+                ? "bg-brand-500 text-white"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+            }`}
+          >
+            Hybrid
+          </button>
+        </div>
+
+        <div className="overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-200">
+          <div className="relative w-full pb-[60%] sm:pb-[56.25%]">
             <iframe
               title="Store Location Map"
               src={mapEmbedUrl}
               className="absolute inset-0 h-full w-full"
-              style={{ border: 0 }}
+              style={{ border: 0, pointerEvents: mapInteractive ? "auto" : "none" }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
+
+            {!mapInteractive && (
+              <button
+                type="button"
+                onClick={() => setMapInteractive(true)}
+                className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 px-4 text-center text-sm font-semibold text-white"
+              >
+                Tap to interact with map
+              </button>
+            )}
+
+            {mapInteractive && (
+              <button
+                type="button"
+                onClick={() => setMapInteractive(false)}
+                className="absolute right-3 top-3 z-20 inline-flex min-h-[36px] items-center rounded-md bg-white/95 px-3 text-xs font-semibold text-slate-700 shadow"
+              >
+                Disable map interaction
+              </button>
+            )}
           </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <a
             href={directionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
           >
             <FaDirections />
             Get Directions
             <FaMapMarkerAlt className="text-xs" />
+          </a>
+          <a
+            href={mapOpenUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200"
+          >
+            Open in Google Maps
           </a>
         </div>
       </section>
@@ -166,4 +249,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-
