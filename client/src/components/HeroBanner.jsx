@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const HeroBanner = () => (
   <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand-900 via-brand-700 to-brand-500 p-8 text-white shadow-xl sm:p-12 animate-fade-in">

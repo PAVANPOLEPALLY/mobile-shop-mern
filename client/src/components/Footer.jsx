@@ -1,4 +1,4 @@
-﻿import { FaFacebook, FaInstagram, FaTwitter, FaPhoneAlt, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaPhoneAlt, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
 const shopName = import.meta.env.VITE_SHOP_NAME || "Sri Kanakadurga Mobiles";
 const shopDescription =
@@ -8,7 +8,7 @@ const shopAddress =
   import.meta.env.VITE_SHOP_ADDRESS || "MG Road, Bengaluru, Karnataka 560001";
 const shopEmail = import.meta.env.VITE_SHOP_EMAIL || "support@srikanakadurgamobiles.in";
 const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
-const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "919999999999").replace(/\D/g, "");
+const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "778039932").replace(/\D/g, "");
 
 const socialLinks = [
   { icon: FaTwitter, label: "Twitter", href: "https://twitter.com" },

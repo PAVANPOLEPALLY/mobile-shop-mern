@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -8,6 +8,11 @@ const navLinkClass = ({ isActive }) =>
     isActive
       ? "bg-brand-100 text-brand-700"
       : "text-slate-700 hover:bg-slate-100 hover:text-brand-500"
+  }`;
+
+const mobileNavLinkClass = ({ isActive }) =>
+  `inline-flex h-12 w-full items-center rounded-lg px-3 text-base font-medium transition ${
+    isActive ? "bg-brand-100 text-brand-700" : "text-slate-700 hover:bg-slate-100 hover:text-brand-500"
   }`;
 
 const Navbar = () => {
@@ -23,6 +28,31 @@ const Navbar = () => {
   };
 
   const closeMobileMenu = () => setMobileOpen(false);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      const previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        document.body.style.overflow = previousOverflow;
+      };
+    }
+
+    document.body.style.overflow = "";
+    return undefined;
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur animate-slide-down">
@@ -49,7 +79,7 @@ const Navbar = () => {
             onClick={() => setMobileOpen((prev) => !prev)}
             className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md border border-slate-300 text-slate-700 transition hover:bg-slate-100 md:hidden"
           >
-            {mobileOpen ? "X" : "Menu"}
+            <span className="text-sm font-semibold">{mobileOpen ? "X" : "Menu"}</span>
           </button>
         </div>
 
@@ -85,36 +115,44 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-200 md:hidden ${
+        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 md:hidden ${
           mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={closeMobileMenu}
       />
       <aside
-        className={`fixed top-0 right-0 z-50 h-full w-[70%] max-w-72 bg-white shadow-lg transition-transform duration-200 md:hidden ${
+        className={`fixed top-0 right-0 z-50 h-full w-[78%] max-w-72 bg-white shadow-lg transition-transform duration-300 ease-out md:hidden ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="border-b border-slate-200 px-4 py-4">
+        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
           <p className="text-lg font-bold text-brand-700">Menu</p>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={closeMobileMenu}
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md border border-slate-300 text-slate-700 transition hover:bg-slate-100"
+          >
+            X
+          </button>
         </div>
         <nav className="flex flex-col gap-2 px-4 py-4">
-          <NavLink to="/" className={navLinkClass} onClick={closeMobileMenu}>
+          <NavLink to="/" className={mobileNavLinkClass} onClick={closeMobileMenu}>
             Home
           </NavLink>
-          <NavLink to="/about" className={navLinkClass} onClick={closeMobileMenu}>
+          <NavLink to="/about" className={mobileNavLinkClass} onClick={closeMobileMenu}>
             About
           </NavLink>
-          <NavLink to="/contact" className={navLinkClass} onClick={closeMobileMenu}>
+          <NavLink to="/contact" className={mobileNavLinkClass} onClick={closeMobileMenu}>
             Contact
           </NavLink>
-          <NavLink to="/products" className={navLinkClass} onClick={closeMobileMenu}>
+          <NavLink to="/products" className={mobileNavLinkClass} onClick={closeMobileMenu}>
             Products
           </NavLink>
-          <NavLink to="/cart" className={navLinkClass} onClick={closeMobileMenu}>
+          <NavLink to="/cart" className={mobileNavLinkClass} onClick={closeMobileMenu}>
             Cart ({items.length})
           </NavLink>
-          <NavLink to="/admin/dashboard" className={navLinkClass} onClick={closeMobileMenu}>
+          <NavLink to="/admin/dashboard" className={mobileNavLinkClass} onClick={closeMobileMenu}>
             Admin
           </NavLink>
           {token && (

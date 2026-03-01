@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getProducts } from "../services/api";
 import { discountedPrice } from "../utils/pricing";
@@ -78,10 +78,10 @@ const ProductsPage = () => {
           className="rounded-lg border border-slate-300 px-3 py-3 outline-none transition focus:border-brand-500 min-h-[44px]"
         >
           <option value="">All Prices</option>
-          <option value="below-5000">Below ₹5,000</option>
-          <option value="below-10000">Below ₹10,000</option>
-          <option value="below-20000">Below ₹20,000</option>
-          <option value="above-20000">Above ₹20,000</option>
+          <option value="below-5000">Below ?5,000</option>
+          <option value="below-10000">Below ?10,000</option>
+          <option value="below-20000">Below ?20,000</option>
+          <option value="above-20000">Above ?20,000</option>
         </select>
 
         <select

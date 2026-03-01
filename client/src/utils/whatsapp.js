@@ -1,6 +1,6 @@
-﻿import { discountedPrice, formatINR } from "./pricing";
+import { discountedPrice, formatINR } from "./pricing";
 
-const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "919999999999";
+const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "778039932";
 
 export const createSingleProductWhatsAppLink = (product, quantity = 1) => {
   const finalPrice = discountedPrice(product.price, product.discount);

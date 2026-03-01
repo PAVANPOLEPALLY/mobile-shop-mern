@@ -1,4 +1,4 @@
-﻿import { useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContext";
 import { discountedPrice, formatINR } from "../utils/pricing";
 import { createCartWhatsAppLink } from "../utils/whatsapp";
 

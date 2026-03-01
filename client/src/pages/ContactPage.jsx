@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { FaDirections, FaMapMarkerAlt } from "react-icons/fa";
 
 const ContactPage = () => {
@@ -7,7 +7,7 @@ const ContactPage = () => {
     import.meta.env.VITE_SHOP_ADDRESS || "MG Road, Bengaluru, Karnataka 560001";
   const shopEmail = import.meta.env.VITE_SHOP_EMAIL || "support@srikanakadurgamobiles.in";
   const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
-  const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "919999999999").replace(
+  const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "778039932").replace(
     /\D/g,
     ""
   );

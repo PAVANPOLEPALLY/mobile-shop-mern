@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const FALLBACK_BANNER = {
   title: "Latest Smartphones, Trusted Service",

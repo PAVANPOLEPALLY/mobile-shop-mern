@@ -1,4 +1,4 @@
-﻿const key = "mobileShopCart";
+const key = "mobileShopCart";
 
 export const getStoredCart = () => {
   try {

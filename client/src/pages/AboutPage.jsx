@@ -1,4 +1,4 @@
-﻿const AboutPage = () => {
+const AboutPage = () => {
   return (
     <section className="mx-auto max-w-4xl space-y-8 animate-fade-in">
       <header className="space-y-3">
@@ -69,7 +69,7 @@
           advice, order updates, and support whenever you need it.
         </p>
         <p className="text-lg font-semibold text-slate-900">
-          At our store, you don’t just buy a phone, you shop with confidence.
+          At our store, you don�t just buy a phone, you shop with confidence.
         </p>
       </article>
     </section>

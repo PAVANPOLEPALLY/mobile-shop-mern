@@ -1,4 +1,4 @@
-﻿import api from "./api";
+import api from "./api";
 
 export const getPublicBanners = async (type) => {
   const { data } = await api.get("/banners", { params: type ? { type } : {} });
