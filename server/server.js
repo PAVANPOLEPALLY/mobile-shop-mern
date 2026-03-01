@@ -25,9 +25,11 @@ const configuredClientUrls = (process.env.CLIENT_URL || "")
   .split(",")
   .map((url) => normalizeOrigin(url))
   .filter(Boolean);
-const allowedOrigins = ["http://localhost:5173", ...configuredClientUrls].map((url) =>
-  normalizeOrigin(url)
-);
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://mobile-shop-mern.netlify.app",
+  ...configuredClientUrls
+].map((url) => normalizeOrigin(url));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -47,7 +49,9 @@ app.use(
 
       return callback(new Error("Not allowed by CORS"));
     },
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 app.use(express.json({ limit: "1mb" }));
