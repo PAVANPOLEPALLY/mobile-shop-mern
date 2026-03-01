@@ -115,13 +115,13 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-[90] bg-black/80 transition-opacity duration-300 md:hidden ${
           mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={closeMobileMenu}
       />
       <aside
-        className={`fixed top-0 right-0 z-50 h-full w-[78%] max-w-72 bg-white shadow-lg transition-transform duration-300 ease-out md:hidden ${
+        className={`fixed top-0 right-0 z-[100] h-full w-[80%] max-w-80 overflow-y-auto bg-white shadow-lg transition-transform duration-300 ease-out md:hidden ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
