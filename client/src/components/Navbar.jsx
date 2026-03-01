@@ -121,7 +121,7 @@ const Navbar = () => {
         onClick={closeMobileMenu}
       />
       <aside
-        className={`fixed top-0 right-0 z-[100] h-full w-[80%] max-w-80 overflow-y-auto bg-white shadow-lg transition-transform duration-300 ease-out md:hidden ${
+        className={`fixed top-0 right-0 z-[100] h-full w-[80%] max-w-80 overflow-y-auto bg-white opacity-100 shadow-2xl backdrop-blur-none transition-transform duration-300 ease-out md:hidden ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
