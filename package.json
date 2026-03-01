@@ -8,6 +8,7 @@
     "dev:legacy": "vite",
     "install:all": "npm install --prefix server && npm install --prefix client",
     "seed:admin": "npm run seed:admin --prefix server",
+    "seed:demo-products": "npm run seed:demo-products --prefix server",
     "build": "vite build",
     "build:client": "npm run build --prefix client",
     "build:dev": "vite build --mode development",
