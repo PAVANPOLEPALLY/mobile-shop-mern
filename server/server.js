@@ -20,11 +20,14 @@ connectDB();
 
 const app = express();
 const environment = process.env.NODE_ENV || "development";
+const normalizeOrigin = (origin) => (origin || "").trim().replace(/\/+$/, "");
 const configuredClientUrls = (process.env.CLIENT_URL || "")
   .split(",")
-  .map((url) => url.trim())
+  .map((url) => normalizeOrigin(url))
   .filter(Boolean);
-const allowedOrigins = ["http://localhost:5173", ...configuredClientUrls];
+const allowedOrigins = ["http://localhost:5173", ...configuredClientUrls].map((url) =>
+  normalizeOrigin(url)
+);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -38,7 +41,7 @@ app.use(
     origin(origin, callback) {
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
+      if (allowedOrigins.includes(normalizeOrigin(origin))) {
         return callback(null, true);
       }
 
