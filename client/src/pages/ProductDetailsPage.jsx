@@ -1,17 +1,21 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCart } from "../context/CartContext";
 import { getProductById } from "../services/api";
-import { discountedPrice, formatINR } from "../utils/pricing";
+import { calculatePricing, formatINR, formatINRWhole } from "../utils/pricing";
 import { createSingleProductWhatsAppLink } from "../utils/whatsapp";
 
 const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
+
+const getOfferLabel = (discount) => {
+  if (discount >= 40) return "Mega Offer";
+  if (discount >= 20) return "Hot Deal";
+  return "";
+};
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
-  const { addToCart } = useCart();
 
   useEffect(() => {
     getProductById(id).then(setProduct).catch(console.error);
@@ -19,16 +23,26 @@ const ProductDetailsPage = () => {
 
   if (!product) return <p className="animate-fade-in">Loading product details...</p>;
 
-  const finalPrice = discountedPrice(product.price, product.discount);
+  const discount = Number(product.discount) || 0;
+  const hasDiscount = discount > 0;
+  const { originalPrice, discountedPrice, savingsAmount } = calculatePricing(product.price, discount);
+  const offerLabel = getOfferLabel(discount);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2 animate-fade-in">
       <section className="space-y-3 animate-fade-up">
-        <img
-          src={product.images?.[selectedImage] || "https://via.placeholder.com/700x500?text=Product"}
-          alt={product.name}
-          className="h-96 w-full rounded-2xl object-cover shadow-md"
-        />
+        <div className="relative">
+          {hasDiscount && (
+            <span className="absolute right-4 top-4 z-10 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white shadow">
+              -{discount}%
+            </span>
+          )}
+          <img
+            src={product.images?.[selectedImage] || "https://via.placeholder.com/700x500?text=Product"}
+            alt={product.name}
+            className="h-96 w-full rounded-2xl object-cover shadow-md"
+          />
+        </div>
         <div className="grid grid-cols-4 gap-2">
           {(product.images || []).map((image, index) => (
             <button
@@ -48,18 +62,30 @@ const ProductDetailsPage = () => {
       <section className="space-y-4 animate-fade-up">
         <h1 className="text-3xl font-bold">{product.name}</h1>
         <p className="text-sm text-slate-600">{product.brand}</p>
-        <div className="flex items-center gap-3">
-          <span className="text-3xl font-bold text-brand-700">{formatINR(finalPrice)}</span>
-          {product.discount > 0 && (
-            <span className="text-lg text-slate-400 line-through">{formatINR(product.price)}</span>
-          )}
-        </div>
+
+        {hasDiscount ? (
+          <div className="space-y-1">
+            <div className="flex items-end gap-3">
+              <span className="text-3xl font-medium text-rose-600">-{discount}%</span>
+              <span className="text-4xl font-bold leading-none text-slate-900">
+                {formatINRWhole(discountedPrice)}
+              </span>
+            </div>
+            <p className="text-sm text-slate-500">
+              M.R.P. <span className="line-through">{formatINRWhole(originalPrice)}</span>
+            </p>
+            <p className="text-sm font-semibold text-rose-600">You Save {formatINR(savingsAmount)}</p>
+          </div>
+        ) : (
+          <span className="text-4xl font-bold text-slate-900">{formatINRWhole(originalPrice)}</span>
+        )}
 
         <div className="flex flex-wrap gap-2 text-xs font-bold">
-          {product.discount > 0 && (
-            <span className="rounded-full bg-rose-100 px-3 py-1 text-rose-700">
-              {product.discount}% OFF
-            </span>
+          {hasDiscount && (
+            <span className="rounded-full bg-rose-100 px-3 py-1 text-rose-700">-{discount}% OFF</span>
+          )}
+          {offerLabel && (
+            <span className="rounded-full bg-orange-100 px-3 py-1 text-orange-700">{offerLabel}</span>
           )}
           {product.emiAvailable && (
             <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-700">
@@ -87,13 +113,6 @@ const ProductDetailsPage = () => {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => addToCart(product)}
-            className="rounded-lg bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-brand-700"
-          >
-            Add to Cart
-          </button>
           <a
             href={createSingleProductWhatsAppLink(product, 1)}
             target="_blank"

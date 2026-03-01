@@ -19,6 +19,11 @@ export const getProducts = async (params = {}) => {
   return data;
 };
 
+export const getFeaturedProducts = async () => {
+  const { data } = await api.get("/products/featured");
+  return data;
+};
+
 export const getProductById = async (id) => {
   const { data } = await api.get(`/products/${id}`);
   return data;
@@ -45,6 +50,11 @@ export const updateProduct = async (id, formData) => {
 
 export const deleteProduct = async (id) => {
   const { data } = await api.delete(`/products/${id}`);
+  return data;
+};
+
+export const toggleFeaturedProduct = async (id, payload = {}) => {
+  const { data } = await api.patch(`/products/${id}/featured`, payload);
   return data;
 };
 

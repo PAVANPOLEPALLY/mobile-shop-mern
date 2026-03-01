@@ -1,7 +1,8 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import HeroSlider from "../components/HeroSlider";
 import ProductCard from "../components/ProductCard";
-import { getProducts } from "../services/api";
+import { getFeaturedProducts, getProducts } from "../services/api";
 import { getPublicBanners } from "../services/bannerService";
 
 const BannerSkeleton = () => (
@@ -13,14 +14,26 @@ const BannerSkeleton = () => (
 );
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [latestProducts, setLatestProducts] = useState([]);
   const [heroBanners, setHeroBanners] = useState([]);
   const [offerBanners, setOfferBanners] = useState([]);
   const [loadingHero, setLoadingHero] = useState(true);
   const [loadingOffers, setLoadingOffers] = useState(true);
 
   useEffect(() => {
-    getProducts().then(setProducts).catch(console.error);
+    getFeaturedProducts()
+      .then((data) => setFeaturedProducts((data || []).slice(0, 8)))
+      .catch(console.error);
+
+    getProducts()
+      .then((data) => {
+        const sorted = [...(data || [])].sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setLatestProducts(sorted.slice(0, 8));
+      })
+      .catch(console.error);
 
     getPublicBanners("hero")
       .then(setHeroBanners)
@@ -33,11 +46,28 @@ const HomePage = () => {
       .finally(() => setLoadingOffers(false));
   }, []);
 
-  const featured = products.slice(0, 8);
-
   return (
     <div className="space-y-12 animate-fade-in">
       <HeroSlider banners={heroBanners} loading={loadingHero} />
+
+      {featuredProducts.length > 0 && (
+        <section className="space-y-4 rounded-2xl bg-amber-50/60 p-4 ring-1 ring-amber-100 animate-fade-up sm:p-6">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-2xl font-bold">Featured Mobiles</h2>
+            <Link
+              to="/products"
+              className="rounded-lg bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-800 transition hover:bg-amber-200"
+            >
+              View All
+            </Link>
+          </div>
+          <div className="stagger-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredProducts.map((product, index) => (
+              <ProductCard key={product._id} product={product} index={index} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {!loadingOffers && offerBanners.length > 0 && (
         <section className="space-y-4 animate-fade-up">
@@ -75,9 +105,9 @@ const HomePage = () => {
       {loadingOffers && <BannerSkeleton />}
 
       <section className="space-y-4 animate-fade-up">
-        <h2 className="text-2xl font-bold">Featured Products</h2>
+        <h2 className="text-2xl font-bold">Latest Products</h2>
         <div className="stagger-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((product, index) => (
+          {latestProducts.map((product, index) => (
             <ProductCard key={product._id} product={product} index={index} />
           ))}
         </div>

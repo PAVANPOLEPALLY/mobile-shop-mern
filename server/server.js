@@ -19,6 +19,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const environment = process.env.NODE_ENV || "development";
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -53,5 +54,11 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
+  console.log(`Environment: ${environment}`);
+  if (environment === "production") {
+    console.log("Running in production mode");
+  } else {
+    console.log("Running in development mode");
+  }
   console.log(`Server running on port ${PORT}`);
 });

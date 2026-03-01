@@ -15,7 +15,10 @@ const seedAdmin = async () => {
     const existing = await Admin.findOne({ email: process.env.ADMIN_EMAIL.toLowerCase() });
 
     if (existing) {
-      console.log("Admin already exists.");
+      existing.password = process.env.ADMIN_PASSWORD;
+      existing.role = "admin";
+      await existing.save();
+      console.log("Admin already existed. Password updated from .env");
       process.exit(0);
     }
 
