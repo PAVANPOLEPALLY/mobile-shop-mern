@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
+import { createWhatsAppLink } from "../utils/whatsapp";
 
 const FloatingActions = () => {
   const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
-  const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "778039932").replace(/\D/g, "");
   const [lifted, setLifted] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const FloatingActions = () => {
       }`}
     >
       <a
-        href={`https://wa.me/${whatsappNumber}`}
+        href={createWhatsAppLink()}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

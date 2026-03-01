@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { FaDirections, FaMapMarkerAlt } from "react-icons/fa";
+import { createWhatsAppLink, whatsappNumber } from "../utils/whatsapp";
 
 const mapTypeParam = {
   roadmap: "m",
@@ -13,10 +14,6 @@ const ContactPage = () => {
     import.meta.env.VITE_SHOP_ADDRESS || "MG Road, Bengaluru, Karnataka 560001";
   const shopEmail = import.meta.env.VITE_SHOP_EMAIL || "support@srikanakadurgamobiles.in";
   const callNumber = import.meta.env.VITE_CALL_NUMBER || "+917780319932";
-  const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "778039932").replace(
-    /\D/g,
-    ""
-  );
 
   const destinationText =
     "SRI KANAKADURGA WATCH & MOBILES, Gandhinagar, Bhoodan Pochampally, Telangana 508284";
@@ -59,7 +56,7 @@ const ContactPage = () => {
       form.message
     ].join("\n");
 
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(enquiryText)}`;
+    const url = createWhatsAppLink(enquiryText);
     window.open(url, "_blank", "noopener,noreferrer");
     setStatus("Opening WhatsApp with your message...");
   };

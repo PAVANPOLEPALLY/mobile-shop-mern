@@ -1,4 +1,5 @@
 import { FaFacebook, FaInstagram, FaTwitter, FaPhoneAlt, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { createWhatsAppLink } from "../utils/whatsapp";
 
 const shopName = import.meta.env.VITE_SHOP_NAME || "Sri Kanakadurga Mobiles";
 const shopDescription =
@@ -8,7 +9,6 @@ const shopAddress =
   import.meta.env.VITE_SHOP_ADDRESS || "MG Road, Bengaluru, Karnataka 560001";
 const shopEmail = import.meta.env.VITE_SHOP_EMAIL || "support@srikanakadurgamobiles.in";
 const callNumber = import.meta.env.VITE_CALL_NUMBER || "+919999999999";
-const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || "778039932").replace(/\D/g, "");
 
 const socialLinks = [
   { icon: FaTwitter, label: "Twitter", href: "https://twitter.com" },
@@ -62,7 +62,7 @@ const Footer = () => {
               <FaPhoneAlt /> Call Now
             </a>
             <a
-              href={`https://wa.me/${whatsappNumber}`}
+              href={createWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-emerald-100 px-4 py-2 font-semibold text-emerald-700 transition hover:bg-emerald-200"
